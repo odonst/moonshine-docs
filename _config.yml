@@ -1,0 +1,4 @@
+title: Moonshine Docs
+theme: minima
+exclude:
+  - internal
