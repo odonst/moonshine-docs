@@ -1,0 +1,126 @@
+# Lua Solo Mode Manifest
+
+This document describes the JSON manifest format used by Moonshine for Lua solo
+modes. It focuses on the rules modders must follow.
+
+## Table of contents
+- [Overview](#overview)
+- [Required metadata](#required-metadata)
+- [Progression and milestones](#progression-and-milestones)
+- [Badges](#badges)
+- [Variations and menus](#variations-and-menus)
+- [Leaderboards (rankingTables)](#leaderboards-rankingtables)
+- [Resources (resources.images)](#resources-resourcesimages)
+- [Package obfuscation](#package-obfuscation)
+- [Integration reminders for modders](#integration-reminders-for-modders)
+
+## Overview
+- The manifest is required and must be valid before a session can start.
+- JSON properties are case-insensitive.
+- `manifestVersion` and `apiVersion` are integers; only value `1` is supported.
+  Missing values default to `1`.
+- Identifiers (`id`) must be unique within their collection and must not
+  collide across badges, variations, leaderboards, and menu entries.
+- Milestones define the progression tree and back the access/visibility rules
+  of other blocks.
+
+## Required metadata
+- `author` (string, required): informational display.
+- `manifestVersion` (int, required): only value `1` is supported.
+- `apiVersion` (int, required): only value `1` is supported.
+- `name` (string, required): mode name.
+- `scriptVersion` (string, required): free-form.
+- `entryPoint` (string, required): relative path to the main Lua script.
+  - Must live under the manifest folder and under `GAME_ROOT/Lua`.
+  - Used to derive the module name (`path/to/file.lua` becomes `path.to.file`).
+- `description` (string, optional).
+- `modeType` (string, optional): present but not consumed yet.
+
+## Progression and milestones
+- `milestones` (string array, required but may be empty).
+- Any `AccessControlledElement` (badges, variations, menu entries/options,
+  leaderboards) may define:
+  - `requiredMilestone`: milestone that unlocks access.
+  - `visibleFromMilestone`: milestone that makes the element visible before
+    unlock.
+- References to unknown milestones are invalid.
+
+## Badges
+- Optional `badges` array.
+- Fields:
+  - `id` (string, required, <= 32 chars).
+  - `label` (string, required, <= 32).
+  - `description` / `earnedDescription` (optional).
+  - `iconRect` (required): `width` and `height` must be > 0.
+  - `overrideBadge` (optional): badge being replaced.
+  - `requiredMilestone` / `visibleFromMilestone` (optional) must target known
+    milestones.
+- `id` values must be unique and must not collide with variation, leaderboard,
+  or menu ids.
+
+## Variations and menus
+- `variations` array is required (at least one variation).
+- Variation:
+  - `id` (required, <= 32).
+  - `label` (required, <= 32).
+  - `description` / `earnedDescription` (optional).
+  - `refreshRate` (optional): when present, must be between `30` and `120`
+    (currently validated but not used at runtime).
+  - `inputBuffer` (optional): when present, must be between `0` and `5`
+    (currently validated but not used at runtime).
+  - `requiredMilestone` / `visibleFromMilestone` (optional).
+  - `menuInputs` (optional).
+- `menuInputs` (top-level or nested in options):
+  - `id` (required, <= 32) and `label` (required, <= 32).
+  - `type` (optional): if `select` (case-insensitive), `options` is required and
+    non-empty.
+  - `options` (optional otherwise).
+  - `requiredMilestone` / `visibleFromMilestone` (optional).
+- `options`:
+  - `label` (optional, <= 32). If missing, display falls back to `value`.
+  - `value` (required): any JSON value, must be present.
+  - `valueType` (optional): when set, the JSON type must match (`Int`,
+    `Double`, `Bool`, `String`).
+  - `description` / `earnedDescription` (optional).
+  - `inputs` (optional): allows nesting new `menuInputs`.
+  - `requiredMilestone` / `visibleFromMilestone` (optional).
+- Uniqueness:
+  - Variation ids are unique.
+  - `menuInputs` ids must be unique across all variations.
+  - Id collisions across `Badge`, `Variation`, `RankingTable`, and `MenuInput`
+    are not allowed.
+
+## Leaderboards (rankingTables)
+- Optional `rankingTables` array.
+- Fields:
+  - `id` (required, <= 32, unique).
+  - `label` (required, <= 32).
+  - `columns` (required, non-empty).
+  - `requiredMilestone` / `visibleFromMilestone` (optional, must target known
+    milestones).
+- Columns:
+  - `label` (required, <= 32).
+  - `type` (required): `Badge`, `Chrono`, or `Point`.
+
+## Resources (resources.images)
+- Optional `resources` block.
+- `images`: list of images keyed by `id` (uniqueness enforced).
+  - `source`: required relative path to an image under the manifest folder.
+  - `sprites` (optional): each sprite has `id` (unique per image), `x`, `y`,
+    `width`, `height`.
+    - `id` values may repeat across different images but not within the same
+      image.
+
+## Package obfuscation
+- `obfuscatePackageContent` (bool, default `true`):
+  - If `true` (default), manifest, scripts, and images are obfuscated in the
+    package to avoid trivial inspection.
+  - If `false`, the package stores files in clear text and is expected to be
+    read as such.
+
+## Integration reminders for modders
+- The manifest must live under `GAME_ROOT/Lua`; absolute paths are forbidden.
+- `entryPoint` must be inside the manifest folder; escaping the root is invalid.
+- Modder mode requires valid `playerId`/`accessToken` configuration; otherwise
+  the session will not start.
+- `SaveState.txt` next to the `entryPoint` is loaded automatically if present.
