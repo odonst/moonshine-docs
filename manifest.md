@@ -1,3 +1,8 @@
+---
+layout: page
+title: Lua Solo Mode Manifest
+---
+
 # Lua Solo Mode Manifest
 
 This document describes the JSON manifest format used by Moonshine for Lua solo
@@ -124,3 +129,4 @@ modes. It focuses on the rules modders must follow.
 - Modder mode requires valid `playerId`/`accessToken` configuration; otherwise
   the session will not start.
 - `SaveState.txt` next to the `entryPoint` is loaded automatically if present.
+
