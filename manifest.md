@@ -75,15 +75,16 @@ modes. It focuses on the rules modders must follow.
   - `menuInputs` (optional).
 - `menuInputs` (top-level or nested in options):
   - `id` (required, <= 32) and `label` (required, <= 32).
-  - `type` (optional): if `select` (case-insensitive), `options` is required and
-    non-empty.
+  - `type` (optional): currently only `select` is supported. When missing or
+    `select` (case-insensitive), `options` is required and must contain at
+    least 2 entries.
+  - `valueType` (required): expected JSON type for `options[].value`:
+    `Int`, `Double`, `Bool`, or `String`.
   - `options` (optional otherwise).
   - `requiredMilestone` / `visibleFromMilestone` (optional).
-- `options`:
+- `options` (required for `select`):
   - `label` (optional, <= 32). If missing, display falls back to `value`.
-  - `value` (required): any JSON value, must be present.
-  - `valueType` (optional): when set, the JSON type must match (`Int`,
-    `Double`, `Bool`, `String`).
+  - `value` (required): must match the parent `menuInputs[].valueType`.
   - `description` / `earnedDescription` (optional).
   - `inputs` (optional): allows nesting new `menuInputs`.
   - `requiredMilestone` / `visibleFromMilestone` (optional).
