@@ -78,13 +78,11 @@ modes. It focuses on the rules modders must follow.
   - `type` (optional): currently only `select` is supported. When missing or
     `select` (case-insensitive), `options` is required and must contain at
     least 2 entries.
-  - `valueType` (required): expected JSON type for `options[].value`:
-    `Int`, `Double`, `Bool`, or `String`.
   - `options` (optional otherwise).
   - `requiredMilestone` / `visibleFromMilestone` (optional).
 - `options` (required for `select`):
-  - `label` (optional, <= 32). If missing, display falls back to `value`.
-  - `value` (required): must match the parent `menuInputs[].valueType`.
+  - `label` (required, <= 32): used as the selection value passed to Lua and
+    the override file.
   - `description` / `earnedDescription` (optional).
   - `inputs` (optional): allows nesting new `menuInputs`.
   - `requiredMilestone` / `visibleFromMilestone` (optional).
