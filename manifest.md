@@ -41,6 +41,10 @@ modes. It focuses on the rules modders must follow.
 
 ## Progression and milestones
 - `milestones` (string array, required but may be empty).
+- Moonshine can also read `milestones.txt` next to the `entryPoint` to know which
+  milestones are unlocked for the player. It is separate from `SaveState.txt`.
+  - One milestone id per line; only the first token before whitespace is used.
+  - Lines starting with `#` are treated as comments.
 - Any `AccessControlledElement` (badges, variations, menu entries/options,
   leaderboards) may define:
   - `requiredMilestone`: milestone that unlocks access.
@@ -126,5 +130,7 @@ modes. It focuses on the rules modders must follow.
 - Modder mode requires valid `playerId`/`accessToken` configuration; otherwise
   the session will not start.
 - `SaveState.txt` next to the `entryPoint` is loaded automatically if present.
+- `milestones.txt` is read separately to drive access control; do not put
+  modder state in that file.
 
 
