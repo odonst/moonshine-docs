@@ -1,10 +1,15 @@
 ---
 layout: page
-title: Lua Solo Mode Manifest
+title: Manifest Reference
 ---
 
-This document describes the JSON manifest format used by Moonshine for Lua solo
-modes. It focuses on the rules modders must follow.
+Complete technical reference for the manifest.json file. This document describes the JSON manifest format used by Moonshine games in detail.
+
+For modders just getting started, see [Getting Started]({% link getting-started.md %}) or [Variations & Modes]({% link variations-and-modes.md %}).
+
+## Overview
+
+This document describes the complete manifest format and validation rules.
 
 ## Table of contents
 - [Overview](#overview)
@@ -132,5 +137,24 @@ modes. It focuses on the rules modders must follow.
 - `SaveState.txt` next to the `entryPoint` is loaded automatically if present.
 - `milestones.txt` is read separately to drive access control; do not put
   modder state in that file.
+
+---
+
+## Quick Navigation
+
+**Beginner? Start here:**
+- **[Getting Started]({% link getting-started.md %})** - Create your first mod
+- **[Variations & Modes]({% link variations-and-modes.md %})** - Multiple game types
+
+**Learn by doing:**
+- **[Complete Example]({% link example-progression-mode.md %})** - Full working mod
+
+**Specific topics:**
+- **[Menus & Configuration]({% link menus-configuration.md %})** - Player options
+- **[Progression System]({% link progression-milestones.md %})** - Milestone gates
+- **[Leaderboards]({% link leaderboards.md %})** - Score tracking
+- **[Best Practices]({% link best-practices.md %})** - Design guidelines
+
+**Back to:** [Home]({% link index.md %})
 
 
