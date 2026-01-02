@@ -15,12 +15,6 @@ Over the years, I've watched many others attempt similar projects within the TGM
 
 **Moonshine is my attempt to address that.** It aims to be a platform that lets anyone create a puzzle game simply (I hope), while providing built-in community features out of the box: player progression tracking, leaderboards, and online replay. No need to rebuild the foundation every time, focus on your game design instead.
 
----
-
-This documentation is designed for content creators and game designers who want to build and publish their own games on the Moonshine platform using Lua scripting. While Moonshine was originally built for puzzle games, it's now flexible enough to support many types of games, including challenging puzzles, roguelike adventures, progression-based challenges, and more.
-
-This guide covers the entire process, from designing your game mechanics to integrating progression systems, building interactive menus, and publishing your creation to the Moonshine community.
-
 ## Getting Started
 
 New to Moonshine modding? Start here:

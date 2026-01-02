@@ -1,0 +1,154 @@
+---
+---
+@import "minima";
+
+body {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  grid-template-areas:
+    "sidebar main"
+    "sidebar footer";
+  margin: 0 auto;
+  max-width: 1060px;
+  width: 100%;
+}
+
+.site-header {
+  border-bottom: 0;
+  border-right: 1px solid #e8e8e8;
+  grid-area: sidebar;
+  min-height: 0;
+}
+
+.site-header .wrapper {
+  margin: 0;
+  max-width: none;
+  padding: 24px 20px;
+}
+
+.site-title {
+  display: block;
+  float: none;
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+
+.site-nav {
+  float: none;
+  line-height: 1.4;
+}
+
+.site-nav .page-link {
+  display: block;
+  margin: 0 0 10px 0;
+}
+
+.site-nav .page-link:not(:last-child) {
+  margin-right: 0;
+}
+
+.page-content {
+  grid-area: main;
+}
+
+.page-content .wrapper {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+.site-footer {
+  grid-area: footer;
+}
+
+@media screen and (max-width: 900px) {
+  body {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .site-header {
+    border-bottom: 1px solid #e8e8e8;
+    border-right: 0;
+  }
+
+  .site-header .wrapper {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: calc(800px - (30px * 2));
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  .site-title {
+    float: left;
+    line-height: 54px;
+    margin-bottom: 0;
+  }
+
+  .site-nav {
+    position: absolute;
+    top: 9px;
+    right: 15px;
+    background-color: #fdfdfd;
+    border: 1px solid #e8e8e8;
+    border-radius: 5px;
+    text-align: right;
+    line-height: 1.4;
+  }
+
+  .site-nav label[for=nav-trigger] {
+    display: block;
+    float: right;
+    width: 36px;
+    height: 36px;
+    z-index: 2;
+    cursor: pointer;
+  }
+
+  .site-nav .menu-icon {
+    display: block;
+    float: right;
+    width: 36px;
+    height: 26px;
+    line-height: 0;
+    padding-top: 10px;
+    text-align: center;
+  }
+
+  .site-nav .menu-icon > svg {
+    fill: rgb(66.25, 66.25, 66.25);
+  }
+
+  .site-nav input ~ .trigger {
+    clear: both;
+    display: none;
+  }
+
+  .site-nav input:checked ~ .trigger {
+    display: block;
+    padding-bottom: 5px;
+  }
+
+  .site-nav .page-link {
+    display: block;
+    margin-left: 20px;
+    padding: 5px 10px;
+  }
+
+  .site-nav .page-link:not(:last-child) {
+    margin-right: 0;
+  }
+
+  .page-content .wrapper {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .site-header .wrapper {
+    max-width: calc(800px - 30px);
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
